@@ -8,20 +8,16 @@
     2px
   );
 }
-
 .block-control {
   z-index: 1;
 }
-
 .block-children {
   border-left-color: var(--ls-guideline-color);
   border-left-width: var(--ls-block-bullet-threading-width) !important;
 }
-
 .block-children-container {
   position: relative;
 }
-
 .block-children-left-border {
   z-index: 1;
   position: absolute;
@@ -33,17 +29,14 @@
   left: -1px;
   transition: background-color 0.2s;
 }
-
 .block-children-left-border:hover {
   background-color: var(--ls-block-bullet-active-color);
 }
-
 .block-content-wrapper {
   position: relative;
   overflow-x: visible !important;
   /* Fixme: overflow? */
 }
-
 .bullet-container {
   height: 14px !important;
   width: 14px !important;
@@ -51,7 +44,6 @@
   transform: translate(1px, -1px);
   z-index: 2;
 }
-
 /* Block bullet path should only show in a nested block */
 .ls-block {
   /* Fix for headings like h1, h2 etc */
@@ -129,7 +121,21 @@
   .block-content-wrapper::before {
   border-color: var(--ls-link-text-color);
 }
-
+.ls-block[haschild] > .ls-block-content-indent {
+  position: relative;
+}
+.ls-block[haschild] > .ls-block-content-indent::before {
+  pointer-events: none;
+  content: "";
+  top: -4px;
+  bottom: 0px;
+  left: 28.9px;
+  position: absolute;
+  border-left: var(--ls-block-bullet-threading-width) solid transparent;
+}
+.ls-block[haschild]:focus-within > .ls-block-content-indent::before {
+  border-color: var(--ls-link-text-color);
+}
 :is(.embed-block > div, .embed-page)
   > div
   > div
@@ -139,10 +145,12 @@
   > div.items-center::before {
   border-color: transparent !important;
 }
-
 @media (max-width: 640px) {
   .ls-block[haschild] > .block-main-container .block-content-wrapper::before {
     left: -11px;
+  }
+  .ls-block[haschild] > .ls-block-content-indent::before {
+    left: 23px;
   }
 }
 /* Disable for doc mode */
@@ -152,7 +160,6 @@
 .doc-mode .ls-block::after {
   display: none;
 }
-
 .doc-mode .block-children {
   border-left-width: 0px !important;
 }
