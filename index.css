@@ -38,6 +38,7 @@
 
   --ct-page-border-radius: 5px;
   --ct-line-height: 1.5;
+  --ct-font-size: 17px; /* regular block text size (browser default is 16px) */
 
   --ct-page-title-font-size: 36px;
   --ct-page-title-font-weight: 900;
@@ -146,6 +147,7 @@ body {
 
 html {
   font-variant-ligatures: contextual;
+  font-size: var(--ct-font-size);
 }
 
 @media (max-width: 640px) {
