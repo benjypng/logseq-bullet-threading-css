@@ -1,34 +1,8 @@
-/* ============================================================================
-   Clean Theme — Logseq DB port
-   Original (file-graph): github.com/PiotrSss/logseq-clean-themes
-   Ported to the Logseq DB DOM by mapping the original --ct-* palette onto the
-   DB-version --ls-* / --lx- theming variables.
-
-   Structure:
-     0. Imports + palette (--ct-* kept as an internal palette layer)
-     1. Variable bridge  (--ct-* -> --ls-* / --lx-)   [light + dark]
-     2. Verified section  (selectors confirmed against a DB DOM dump)
-     3. Best-effort section (settings modal, tooltips, queries, refs — UNTESTED)
-
-   NOTE: section 3 selectors could not be confirmed against the supplied DOM
-   (a single light-mode journal page). Treat them as provisional.
-   ============================================================================ */
-
-/* ----------------------------------------------------------------------------
-   0. Imports + fonts
-   ---------------------------------------------------------------------------- */
 @import url("https://cdn.jsdelivr.net/gh/tonsky/FiraCode@5.2/distr/fira_code.css");
 @import url("https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap");
 
-/* ----------------------------------------------------------------------------
-   1. Variable bridge
-   The original theme drove everything through --ct-* and switched palettes via
-   .dark-theme / .white-theme. The DB version uses html[data-theme="dark|light"]
-   and reads --ls-* / --lx-* variables. We keep --ct-* as a palette layer and
-   feed the DB variables from it.
-   ---------------------------------------------------------------------------- */
 :root {
   --ct-font-family: "Noto Sans SC", sans-serif;
   --ct-page-title-font-family: Asap, "Noto Sans SC", sans-serif;
@@ -38,7 +12,7 @@
 
   --ct-page-border-radius: 5px;
   --ct-line-height: 1.5;
-  --ct-font-size: 17px; /* regular block text size (browser default is 16px) */
+  --ct-font-size: 20px;
 
   --ct-page-title-font-size: 36px;
   --ct-page-title-font-weight: 900;
@@ -50,10 +24,9 @@
   --ct-font-family: Overpass, "Noto Sans SC", sans-serif;
 }
 
-/* ---- LIGHT palette ---- */
 html[data-theme="light"] {
-  --ct-background: #f1efe9; /* desk: warm off-white behind the page */
-  --ct-page-background: #fff; /* sheet: the framed page */
+  --ct-background: #f1efe9;
+  --ct-page-background: #fff;
   --ct-page-font-color: #393939;
   --ct-accent: #638445;
   --ct-accent-hover: #789959;
@@ -72,7 +45,6 @@ html[data-theme="light"] {
   --ct-selection: #c9ce9c;
   --ct-journal-border: #d2d2d2;
 
-  /* Bridge to DB variables (light) */
   --ls-primary-background-color: var(--ct-background);
   --ls-secondary-background-color: var(--ct-page-background);
   --ls-tertiary-background-color: #e8e8e8;
@@ -91,7 +63,6 @@ html[data-theme="light"] {
   --lx-accent-11: var(--ct-accent);
 }
 
-/* ---- DARK palette ---- */
 html[data-theme="dark"] {
   --ct-background: #272c35;
   --ct-page-background: #272c35;
@@ -113,7 +84,6 @@ html[data-theme="dark"] {
   --ct-selection: #357764;
   --ct-journal-border: #393939;
 
-  /* Bridge to DB variables (dark) */
   --ls-primary-background-color: var(--ct-background);
   --ls-secondary-background-color: #343b49;
   --ls-tertiary-background-color: #343b49;
@@ -132,11 +102,6 @@ html[data-theme="dark"] {
   --lx-accent-11: var(--ct-accent);
 }
 
-/* ============================================================================
-   2. VERIFIED — selectors confirmed against the DB DOM dump
-   ============================================================================ */
-
-/* ---- Base typography ---- */
 html,
 body {
   font-family: var(--ct-font-family);
@@ -147,7 +112,10 @@ body {
 
 html {
   font-variant-ligatures: contextual;
-  font-size: var(--ct-font-size);
+}
+
+#root {
+  --ls-page-text-size: var(--ct-font-size);
 }
 
 @media (max-width: 640px) {
@@ -156,28 +124,14 @@ html {
   }
 }
 
-/* ---- Main content "page" sheet.
-   DB DOM: #main-content-container > .cp__sidebar-main-content > div.mx-auto.pb-24.
-   The .cp__sidebar-main-content column is viewport-height and centred between
-   the sidebars by flex; the inner .mx-auto wrapper is the real content box —
-   it is already centred correctly AND grows with content, so it is the right
-   element to paint as the sheet. (Earlier attempts failed because a fixed,
-   viewport-centred band ignores the left/right sidebars, and a box on
-   .cp__sidebar-main-content can't grow past the viewport on the journals
-   virtual scroller.)
-
-   The desk colour goes on the container; the sheet (background, side borders,
-   shadow) goes on the inner wrapper. min-height keeps short pages looking like
-   a page; long pages grow the sheet naturally. ---- */
 #main-content-container {
-  background: var(--ct-background); /* the desk */
+  background: var(--ct-background);
 }
 
 .cp__sidebar-main-content {
   background: transparent;
 }
 
-/* The sheet: the centred, content-sized inner wrapper. */
 .cp__sidebar-main-content > .mx-auto {
   background: var(--ct-page-background);
   border-left: 1px solid
@@ -189,12 +143,10 @@ html {
     0 0 12px -4px rgba(0, 0, 0, 0.06);
   min-height: 100vh;
   padding: 8px 40px 60px;
-  /* widen the sheet slightly beyond the default text measure so the text has
-     a margin inside the paper rather than touching the edges */
+
   box-sizing: border-box;
 }
 
-/* On mobile drop the side frame and padding. */
 @media (max-width: 640px) {
   .cp__sidebar-main-content > .mx-auto {
     border-left: none;
@@ -205,9 +157,6 @@ html {
   }
 }
 
-/* ---- Page title.
-   DB renders the title inside .ls-page-title-container with the text in
-   .block-title-wrap. The old `h1.title` no longer exists. ---- */
 .ls-page-title-container .block-title-wrap {
   font-family: var(--ct-page-title-font-family);
   font-size: var(--ct-page-title-font-size);
@@ -216,7 +165,6 @@ html {
   color: var(--ls-primary-text-color);
 }
 
-/* ---- Headings on block titles (h1..h6.block-title-wrap) ---- */
 .ls-block :is(h1, h2, h3, h4, h5, h6).block-title-wrap {
   font-family: var(--ct-heading-font-family);
   font-weight: var(--ct-heading-font-weight);
@@ -237,30 +185,10 @@ html {
   margin: 0.3em 0;
 }
 
-/* ---- Bullets & threading.
-   The merged laurel snippet (end of file) owns bullet colour, the active-path
-   ring, the threading guide-lines, and the closed-bullet orange pulse, all
-   driven from --ls-link-text-color / --ls-block-bullet-color / --ls-guideline-
-   color (which the variable bridge above feeds from the clean palette). We
-   therefore set those variables and do NOT re-style bullets here, to avoid
-   dead or conflicting rules. ---- */
-
-/* ---- Block-children guide lines.
-   Colour comes via --ls-guideline-color (set in the bridge); the laurel
-   snippet sets the width. Left here only as a fallback if that snippet is
-   ever removed. ---- */
 .block-children {
   border-left-color: var(--ct-guideline-color);
 }
 
-/* ---- Tags.
-   Tag pills (.block-tag) are styled by the merged laurel snippet at the end of
-   this file (solid red pills), so we deliberately do NOT recolour them here.
-   Only inline tags inside table/view cells (bare a.tag, handled separately
-   below) get the accent treatment. ---- */
-
-/* ---- Page references (DB DOM: span.page-reference > a.page-ref + .bracket).
-   The brackets [[ ]] are real spans with class .bracket / .text-gray-500. ---- */
 a.page-ref {
   color: var(--ls-link-ref-text-color);
 }
@@ -271,7 +199,6 @@ a.page-ref:hover {
   color: color-mix(in srgb, var(--ls-primary-text-color) 35%, transparent);
 }
 
-/* ---- External links (DB DOM keeps .external-link) ---- */
 .external-link {
   color: var(--ct-link);
   text-decoration: none;
@@ -282,7 +209,6 @@ a.page-ref:hover {
   border-bottom-color: var(--ct-link);
 }
 
-/* ---- Inline code (DB DOM still uses :not(pre) > code) ---- */
 :not(pre) > code {
   font-family: var(--ct-code-font-family);
   font-size: 0.85em;
@@ -298,7 +224,6 @@ samp {
   font-family: var(--ct-code-font-family);
 }
 
-/* ---- Bold / highlight ---- */
 b,
 strong {
   color: var(--ct-bold-color);
@@ -310,7 +235,6 @@ mark {
   border-radius: 2px;
 }
 
-/* ---- Journal separators (DB DOM: #journals .journal-item) ---- */
 #journals .journal-item {
   border-top: 1px solid var(--ct-journal-border);
 }
@@ -318,12 +242,6 @@ mark {
   border-top: none;
 }
 
-/* ---- Properties area (DB DOM, confirmed):
-   .ls-properties-area > .property-pair.items-start, each pair holding a
-   .property-key (with .property-icon + .property-k label) and a
-   .property-value-container. Rather than a flat grey box, present it as a
-   quiet metadata list: a subtle left accent rule sets it apart from block
-   text, keys are muted small-caps, and pairs are separated by a hairline. ---- */
 .ls-properties-area {
   background: color-mix(in srgb, var(--ls-primary-text-color) 3%, transparent);
   border-left: 2px solid
@@ -332,26 +250,25 @@ mark {
   padding: 4px 10px;
   margin-top: 2px;
 }
-/* separate stacked property pairs with a faint divider */
+
 .ls-properties-area .property-pair + .property-pair {
   border-top: 1px solid
     color-mix(in srgb, var(--ls-primary-text-color) 7%, transparent);
   padding-top: 2px;
   margin-top: 2px;
 }
-/* key labels: muted, smaller, slightly tracked */
+
 .property-k,
 .positioned-properties .property-k {
   color: color-mix(in srgb, var(--ls-primary-text-color) 55%, transparent);
   font-size: 0.85em;
   letter-spacing: 0.01em;
 }
-/* the leading property icon recedes too */
+
 .property-icon .ui__icon {
   color: color-mix(in srgb, var(--ls-primary-text-color) 40%, transparent);
 }
 
-/* ---- Scheduled / deadline + overdue (DB DOM: .ls-datetime, .overdue) ---- */
 .ls-datetime a.page-ref {
   color: var(--ct-quote-border);
 }
@@ -360,12 +277,6 @@ mark {
   font-weight: 600;
 }
 
-/* ---- DONE / task markers.
-   DB DOM renders task state as inline SVG (.ls-icon-Done circle filled). The
-   old `.done { text-decoration }` no longer applies to block text; DB strikes
-   nothing by default. DB wraps DONE block text in a real <del> element, which
-   is the reliable hook. The original theme set text-decoration: none on done
-   tasks, so we honour that and instead just mute the colour. ---- */
 .block-title-wrap del {
   text-decoration: none;
   color: var(
@@ -374,14 +285,11 @@ mark {
   );
 }
 
-/* ---- Tags rendered inline (not as pills) inside table/view cells use a.tag
-   directly, e.g. #Task in a query result column. Recolour to the accent. ---- */
 .ls-table-cell a.tag,
 .multi-values a.tag {
   color: var(--ls-link-ref-text-color);
 }
 
-/* ---- Tables (DB DOM keeps .table-wrapper / thead / tbody) ---- */
 .table-wrapper {
   border-radius: 5px;
 }
@@ -397,16 +305,11 @@ mark {
   border-bottom: none;
 }
 
-/* ---- Left sidebar (DB DOM: #left-sidebar, .favorite-item, .recent-item) ---- */
 #left-sidebar .favorite-item .page-title,
 #left-sidebar .recent-item .page-title {
   color: var(--ls-primary-text-color);
 }
 
-/* ---- Quotes (DB DOM, confirmed):
-   a quote block is NOT a <blockquote> element; it is a normal block whose
-   .block-content-or-editor-wrap carries data-node-type="quote". Style that
-   wrapper directly: left rule, faint tinted ground, italic text. ---- */
 .block-content-or-editor-wrap[data-node-type="quote"] {
   border-left: 4px solid var(--ct-quote-border);
   background: color-mix(in srgb, var(--ct-quote-border) 10%, transparent);
@@ -417,14 +320,13 @@ mark {
   font-style: italic;
   color: color-mix(in srgb, var(--ls-primary-text-color) 85%, transparent);
 }
-/* keep a real <blockquote>, if one ever appears, consistent with the above */
+
 blockquote {
   border-left: 4px solid var(--ct-quote-border);
   background: color-mix(in srgb, var(--ct-quote-border) 10%, transparent);
   border-radius: 0 4px 4px 0;
 }
 
-/* ---- Horizontal rule ---- */
 hr {
   border: 0;
   height: 1px;
@@ -436,7 +338,6 @@ hr {
   );
 }
 
-/* ---- Caret + selection ---- */
 textarea {
   caret-color: var(--ls-link-text-color);
 }
@@ -447,16 +348,6 @@ textarea:focus-visible {
   background: var(--ct-selection);
 }
 
-/* ---- Query + view result tables (DB DOM, confirmed).
-   A #...Query block wraps a .custom-query; results render through the view /
-   table system (.ls-table > .ls-table-rows > .ls-table-header + .content rows).
-   The defaults paint every header and row with bg-gray-01 at full opacity and
-   draw heavy per-cell right-borders, which reads as a flat spreadsheet slab.
-   The treatment below makes the result a quiet recessed panel: transparent
-   rows, one faint hairline per row, a single subtle header band, and softened
-   vertical separators. ---- */
-
-/* The query container: a light recessed panel rather than a grey block. */
 .custom-query {
   background: color-mix(in srgb, var(--ls-primary-text-color) 3%, transparent);
   border: 1px solid
@@ -465,15 +356,12 @@ textarea:focus-visible {
   padding: 6px 12px 10px;
 }
 
-/* Override the Tailwind bg-gray-01 slab on the table, header and rows so they
-   inherit the panel/sheet background instead of a flat grey. */
 .custom-query .ls-table .bg-gray-01,
 .custom-query .ls-table-header.bg-gray-01,
 .custom-query .ls-table-row.bg-gray-01 {
   background: transparent !important;
 }
 
-/* Header band: a single faint tint, no heavy double border. */
 .custom-query .ls-table-header {
   background: color-mix(
     in srgb,
@@ -495,7 +383,6 @@ textarea:focus-visible {
   text-transform: uppercase;
 }
 
-/* Body rows: hairline separators only, accent-tinted hover. */
 .custom-query .ls-table-row {
   border-bottom: 1px solid
     color-mix(in srgb, var(--ls-primary-text-color) 7%, transparent) !important;
@@ -508,7 +395,6 @@ textarea:focus-visible {
   ) !important;
 }
 
-/* Soften the per-cell vertical separators that the grid draws with .border-r. */
 .custom-query .ls-table-cell .border-r {
   border-right-color: color-mix(
     in srgb,
@@ -517,7 +403,6 @@ textarea:focus-visible {
   ) !important;
 }
 
-/* Date / group sub-headers inside results, and the "Live query (n)" label. */
 .custom-query .ls-foldable-header .page-ref {
   color: var(--ls-link-ref-text-color);
   font-family: var(--ct-page-title-font-family);
@@ -528,10 +413,6 @@ textarea:focus-visible {
   opacity: 0.65 !important;
 }
 
-/* ---- Right sidebar (DB DOM, confirmed):
-   #right-sidebar > #right-sidebar-container.cp__right-sidebar-inner,
-   a .cp__right-sidebar-topbar of .cp__right-sidebar-settings-btn tabs,
-   and panels as .sidebar-item.content.color-level. ---- */
 #right-sidebar.cp__right-sidebar {
   background: var(--ls-secondary-background-color);
 }
@@ -562,16 +443,6 @@ textarea:focus-visible {
   font-family: var(--ct-page-title-font-family);
 }
 
-/* ============================================================================
-   3. BEST-EFFORT — NOT confirmed against either DOM dump.
-   Only the settings modal, priority markers, block references, and the
-   page-preview tooltip remain unverified. The right sidebar and query/view
-   tables have been moved up to section 2 now that the open-sidebar dump
-   confirmed their structure. Verify these in-app; remove any that misbehave.
-   ============================================================================ */
-
-/* ---- Priority markers. Original used a[priority]. DB likely renders priority
-   as a property pill; this selector is provisional. ---- */
 a[priority]::before,
 a.priority[href$="/A" i]::before {
   content: "🔴";
@@ -586,7 +457,6 @@ a.priority[href$="/C" i]::before {
   margin-right: 2px;
 }
 
-/* ---- Block references inside text (.block-ref). Not present in either dump. ---- */
 .block-ref {
   border-bottom: 1px solid var(--ct-accent);
   background: color-mix(in srgb, var(--ct-accent) 12%, transparent);
@@ -597,28 +467,10 @@ a.priority[href$="/C" i]::before {
   background: color-mix(in srgb, var(--ct-accent) 24%, transparent);
 }
 
-/* ---- Settings modal (.cp__settings-main / .ui__modal-panel).
-   Not in dump; carried over from original intent. ---- */
 .ui__modal-panel,
 .settings-modal {
   background: var(--ls-primary-background-color);
 }
-
-/* ---- Page-preview tooltip (.tippy-* in original).
-   DB uses Radix popovers; original .tippy selectors almost certainly stale. ---- */
-
-/* ============================================================================
-   4. MERGED USER SNIPPET (laurel-theme based)
-   This is the user's existing injected CSS, merged in verbatim and placed LAST
-   so it wins the cascade where it must:
-     - it OWNS tag pills (solid red), bullets, threading guide-lines, the
-       closed-bullet orange pulse, heading-level pills, and hiding .recent;
-     - its tag/bullet rules read --ls-link-text-color etc., which section 1's
-       variable bridge feeds from the clean palette;
-     - section 2 deliberately does not re-style tags or bullets, so there are
-       no conflicts to resolve at runtime.
-   Edit tag/bullet/heading-pill appearance HERE, not in section 2.
-   ============================================================================ */
 
 :root {
   --ls-block-bullet-active-color: var(
@@ -657,7 +509,7 @@ a.priority[href$="/C" i]::before {
 .block-content-wrapper {
   position: relative;
   overflow-x: visible !important;
-  /* Fixme: overflow? */
+
 }
 .bullet-container {
   height: 14px !important;
@@ -666,11 +518,10 @@ a.priority[href$="/C" i]::before {
   transform: translate(1px, -1px);
   z-index: 2;
 }
-/* Block bullet path should only show in a nested block */
+
 .ls-block {
-  /* Fix for headings like h1, h2 etc */
-  /* Basic "curve" */
-  /* Fix multi-line blocks with children */
+
+
 }
 .ls-block .bullet {
   background-color: var(--ls-link-text-color);
@@ -698,7 +549,7 @@ a.priority[href$="/C" i]::before {
   right: 12px;
   top: calc(-50% + var(--ls-block-bullet-threading-width) * 0.5 - 1px);
   bottom: 50%;
-  /* shift left 1px for border */
+
   position: absolute;
   border-left: var(--ls-block-bullet-threading-width) solid transparent;
   border-bottom: var(--ls-block-bullet-threading-width) solid transparent;
@@ -775,7 +626,7 @@ a.priority[href$="/C" i]::before {
     left: 23px;
   }
 }
-/* Disable for doc mode */
+
 .doc-mode div.items-center::before,
 .doc-mode div.items-center::after,
 .doc-mode .ls-block::before,
@@ -809,7 +660,6 @@ a.priority[href$="/C" i]::before {
   }
 }
 
-/* ---------- Heading-level pills on block titles ---------- */
 h1.block-title-wrap::after,
 h2.block-title-wrap::after,
 h3.block-title-wrap::after,
@@ -852,12 +702,10 @@ h6.block-title-wrap::after {
   content: "h6";
 }
 
-/* ---------- Base app styling ---------- */
 a.tag {
   border: none;
 }
 
-/* ---------- Tag pills ---------- */
 .block-tag,
 .block-tag .tag,
 .block-tag .hash-symbol,
@@ -868,7 +716,6 @@ a.tag {
   opacity: 1 !important;
 }
 
-/* Pill — default state */
 .block-tag {
   display: inline-flex;
   align-items: center;
@@ -890,7 +737,6 @@ a.tag {
   gap: 2px;
 }
 
-/* Text colour — white in default state */
 .block-tag .tag,
 .block-tag .tag span,
 .block-tag .hash-symbol,
@@ -900,7 +746,6 @@ a.tag {
   text-decoration: none !important;
 }
 
-/* Pill hover — darker red background, white text stays */
 .block-tag:hover,
 .block-tag.private-tag:hover {
   background: #791f1f !important;
