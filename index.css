@@ -22,7 +22,7 @@
 }
 
 :root.is-mac {
-  --ct-font-family: Overpass, "Noto Sans SC", sans-serif;
+  --ct-font-family: "Maple Mono", "Noto Sans SC", sans-serif;
 }
 
 html[data-theme="light"] {
