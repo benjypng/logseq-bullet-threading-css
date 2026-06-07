@@ -2,9 +2,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/@fontsource/maple-mono@latest/400.css");
 
 :root {
-  --ct-font-family: "Noto Sans SC", sans-serif;
+  --ct-font-family: "Maple Mono", sans-serif;
   --ct-page-title-font-family: Asap, "Noto Sans SC", sans-serif;
   --ct-heading-font-family: var(--ct-page-title-font-family);
   --ct-code-font-family:
@@ -509,7 +510,6 @@ a.priority[href$="/C" i]::before {
 .block-content-wrapper {
   position: relative;
   overflow-x: visible !important;
-
 }
 .bullet-container {
   height: 14px !important;
@@ -520,8 +520,6 @@ a.priority[href$="/C" i]::before {
 }
 
 .ls-block {
-
-
 }
 .ls-block .bullet {
   background-color: var(--ls-link-text-color);
