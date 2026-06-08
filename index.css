@@ -1,11 +1,9 @@
 @import url("https://cdn.jsdelivr.net/gh/tonsky/FiraCode@5.2/distr/fira_code.css");
-@import url("https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap");
-@import url("https://cdn.jsdelivr.net/npm/@fontsource/maple-mono@latest/400.css");
 
 :root {
-  --ct-font-family: "Maple Mono", sans-serif;
+  --ct-font-family: "Noto Sans SC", sans-serif;
   --ct-page-title-font-family: Asap, "Noto Sans SC", sans-serif;
   --ct-heading-font-family: var(--ct-page-title-font-family);
   --ct-code-font-family:
@@ -13,7 +11,7 @@
 
   --ct-page-border-radius: 5px;
   --ct-line-height: 1.5;
-  --ct-font-size: 20px;
+  --ct-font-size: 16px;
 
   --ct-page-title-font-size: 36px;
   --ct-page-title-font-weight: 900;
@@ -22,7 +20,7 @@
 }
 
 :root.is-mac {
-  --ct-font-family: "Maple Mono", "Noto Sans SC", sans-serif;
+  --ct-font-family: "Noto Sans SC", sans-serif;
 }
 
 html[data-theme="light"] {
