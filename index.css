@@ -1,6 +1,7 @@
 @import url("https://cdn.jsdelivr.net/gh/tonsky/FiraCode@5.2/distr/fira_code.css");
 @import url("https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/benjypng/logseq-bullet-threading-css/bullet-threading.css");
 
 :root {
   --ct-font-family: "Noto Sans SC", sans-serif;
@@ -471,167 +472,8 @@ a.priority[href$="/C" i]::before {
   background: var(--ls-primary-background-color);
 }
 
-:root {
-  --ls-block-bullet-active-color: var(
-    --ls-block-bullet-threading-active-color-overwrite,
-    var(--ls-link-text-color)
-  );
-  --ls-block-bullet-threading-width: var(
-    --ls-block-bullet-threading-width-overwrite,
-    2px
-  );
-}
-.block-control {
-  z-index: 1;
-}
-.block-children {
-  border-left-color: var(--ls-guideline-color);
-  border-left-width: var(--ls-block-bullet-threading-width) !important;
-}
-.block-children-container {
-  position: relative;
-}
-.block-children-left-border {
-  z-index: 1;
-  position: absolute;
-  height: 100%;
-  width: 4px;
-  padding-right: 0px;
-  border-radius: 2px;
-  background-color: transparent;
-  left: -1px;
-  transition: background-color 0.2s;
-}
-.block-children-left-border:hover {
-  background-color: var(--ls-block-bullet-active-color);
-}
-.block-content-wrapper {
-  position: relative;
-  overflow-x: visible !important;
-}
-.bullet-container {
-  height: 14px !important;
-  width: 14px !important;
-  position: relative;
-  transform: translate(1px, -1px);
-  z-index: 2;
-}
-
-.ls-block {
-}
-.ls-block .bullet {
-  background-color: var(--ls-link-text-color);
-  box-shadow: 0 0 0 1px var(--ls-link-text-color);
-}
-.ls-block div.block-control-wrap {
-  position: relative;
-  height: 26px !important;
-}
-.ls-block > .items-baseline {
-  align-items: initial;
-}
-.ls-block:not(:focus-within) .bullet {
-  background-color: var(--ls-block-bullet-color);
-  transform: scale(1);
-  box-shadow: none;
-}
-.ls-block:not(:focus-within) > .items-baseline {
-  align-items: baseline;
-}
-.ls-block .ls-block > div > div.items-center::before {
-  pointer-events: none;
-  content: "";
-  left: calc(var(--ls-block-bullet-threading-width) * -1);
-  right: 12px;
-  top: calc(-50% + var(--ls-block-bullet-threading-width) * 0.5 - 1px);
-  bottom: 50%;
-
-  position: absolute;
-  border-left: var(--ls-block-bullet-threading-width) solid transparent;
-  border-bottom: var(--ls-block-bullet-threading-width) solid transparent;
-  border-bottom-left-radius: 10px;
-}
-.ls-block .ls-block:focus-within > div > div.items-center::before {
-  border-color: var(--ls-link-text-color);
-}
-.ls-block .block-children > .blocks-list-wrap > .ls-block::before {
-  pointer-events: none;
-  content: "";
-  top: -0.5rem;
-  bottom: 0;
-  border-left: var(--ls-block-bullet-threading-width) solid transparent;
-  left: calc(var(--ls-block-bullet-threading-width) * -1);
-  position: absolute;
-}
-.ls-block
-  .block-children:focus-within
-  > .blocks-list-wrap
-  > .ls-block:not(:focus-within)::before {
-  border-color: var(--ls-link-text-color);
-}
-.ls-block
-  .block-children:focus-within
-  > .blocks-list-wrap
-  > .ls-block:focus-within
-  ~ .ls-block::before {
-  border-color: transparent;
-}
-.ls-block[haschild] > .block-main-container .block-content-wrapper::before {
-  pointer-events: none;
-  content: "";
-  top: 18px;
-  bottom: 0;
-  left: -13px;
-  position: absolute;
-  border-left: var(--ls-block-bullet-threading-width) solid transparent;
-}
-.ls-block[haschild]:focus-within
-  > .block-main-container
-  .block-content-wrapper::before {
-  border-color: var(--ls-link-text-color);
-}
-.ls-block[haschild] > .ls-block-content-indent {
-  position: relative;
-}
-.ls-block[haschild] > .ls-block-content-indent::before {
-  pointer-events: none;
-  content: "";
-  top: -4px;
-  bottom: 0px;
-  left: 28.9px;
-  position: absolute;
-  border-left: var(--ls-block-bullet-threading-width) solid transparent;
-}
-.ls-block[haschild]:focus-within > .ls-block-content-indent::before {
-  border-color: var(--ls-link-text-color);
-}
-:is(.embed-block > div, .embed-page)
-  > div
-  > div
-  > div
-  > div.ls-block
-  > div
-  > div.items-center::before {
-  border-color: transparent !important;
-}
-@media (max-width: 640px) {
-  .ls-block[haschild] > .block-main-container .block-content-wrapper::before {
-    left: -11px;
-  }
-  .ls-block[haschild] > .ls-block-content-indent::before {
-    left: 23px;
-  }
-}
-
-.doc-mode div.items-center::before,
-.doc-mode div.items-center::after,
-.doc-mode .ls-block::before,
-.doc-mode .ls-block::after {
-  display: none;
-}
-.doc-mode .block-children {
-  border-left-width: 0px !important;
-}
+/* Bullet threading lives in bullet-threading.css (imported at the top of this
+   file) so there is a single source of truth — edit it there, not here. */
 
 .recent {
   display: none !important;
@@ -756,4 +598,106 @@ a.tag {
   color: #fff !important;
   background: transparent !important;
   border-radius: 11px;
+}
+
+/* Header bar */
+.cp__header {
+  font-size: var(--ct-font-size) !important;
+  background: color-mix(
+    in srgb,
+    var(--ls-primary-background-color) 85%,
+    transparent
+  );
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--ls-primary-text-color) 10%, transparent);
+  backdrop-filter: blur(12px);
+}
+.cp__header .button.icon,
+.cp__header .ui__button {
+  color: color-mix(in srgb, var(--ls-primary-text-color) 60%, transparent);
+}
+.cp__header .button.icon:hover,
+.cp__header .ui__button:hover {
+  color: var(--ls-link-text-color);
+  background: color-mix(in srgb, var(--ls-link-text-color) 10%, transparent);
+}
+.cp__header .injected-ui-item-toolbar .button {
+  color: color-mix(in srgb, var(--ls-primary-text-color) 60%, transparent);
+}
+.cp__header .injected-ui-item-toolbar .button:hover {
+  color: var(--ls-link-text-color);
+}
+.cp__header .toolbar-plugins-manager-trigger {
+  color: color-mix(in srgb, var(--ls-primary-text-color) 60%, transparent);
+}
+.cp__header .cp__rtc-sync-indicator .ui__button.idle {
+  color: var(--ls-accent-11, var(--ct-accent));
+}
+
+/* Notifications */
+.ui__notifications .ui__notifications-content > .transition > .rounded-lg,
+.ui__notifications .ui__notifications-content .notification-area .rounded-lg {
+  background: var(--ls-secondary-background-color);
+  border: 1px solid
+    color-mix(in srgb, var(--ls-primary-text-color) 12%, transparent);
+  box-shadow:
+    0 8px 24px -6px rgba(0, 0, 0, 0.25),
+    0 2px 8px -4px rgba(0, 0, 0, 0.15);
+}
+.ui__notifications .ui__notifications-content .text-sm {
+  color: var(--ls-primary-text-color);
+}
+.ui__notifications .ui__notifications-content .ui__button {
+  color: color-mix(in srgb, var(--ls-primary-text-color) 55%, transparent);
+}
+.ui__notifications .ui__notifications-content .ui__button:hover {
+  color: var(--ls-primary-text-color);
+  background: color-mix(
+    in srgb,
+    var(--ls-primary-text-color) 8%,
+    transparent
+  ) !important;
+}
+.ui__notifications .notification-error .text-error,
+.ui__notifications .notification-error .ls-icon-circle-x {
+  color: var(--ct-link);
+}
+.ui__notifications .notification-success .text-success {
+  color: var(--ct-accent);
+}
+.ui__notifications .notification-warning .text-warning {
+  color: #e0a32e;
+}
+
+/* Search button active state */
+#search-button {
+  border-radius: 6px;
+}
+#search-button:active,
+#search-button[data-keep-selection="true"]:focus,
+#search-button.active {
+  color: var(--ls-link-text-color);
+  background: color-mix(in srgb, var(--ls-link-text-color) 14%, transparent);
+}
+
+/* Collaborator chip + avatar */
+.cp__header .rtc-collaborators {
+  background: color-mix(in srgb, var(--ls-primary-text-color) 5%, transparent);
+  border: 1px solid
+    color-mix(in srgb, var(--ls-primary-text-color) 10%, transparent);
+  border-radius: 999px;
+  padding: 2px 6px 2px 2px;
+}
+.cp__header .rtc-collaborators .ui__button {
+  height: 28px;
+  padding: 0 8px;
+}
+.cp__header .ui__avatar {
+  box-shadow: 0 0 0 1px
+    color-mix(in srgb, var(--ls-primary-background-color) 90%, transparent);
+}
+.cp__header .ui__avatar .bg-muted {
+  color: var(--ls-primary-text-color);
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }

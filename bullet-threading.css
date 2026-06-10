@@ -163,3 +163,26 @@
 .doc-mode .block-children {
   border-left-width: 0px !important;
 }
+/* Remove the trailing vertical "arm" below a last child that has no children.
+   The parent guide lines are anchored to bottom:0, so for a single-line leaf
+   they overshoot past its bullet. Mask that overshoot within the child's box. */
+.ls-block
+  .block-children
+  > .blocks-list-wrap
+  > .ls-block:last-child:not([haschild]) {
+  position: relative;
+}
+.ls-block
+  .block-children
+  > .blocks-list-wrap
+  > .ls-block:last-child:not([haschild])::after {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  left: -6px;
+  width: 16px;
+  top: 16px;
+  bottom: 0;
+  background: var(--ct-page-background, var(--ls-secondary-background-color));
+  z-index: 1;
+}
