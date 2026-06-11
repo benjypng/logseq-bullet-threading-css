@@ -116,7 +116,11 @@
   position: absolute;
   border-left: var(--ls-block-bullet-threading-width) solid transparent;
 }
-.ls-block[haschild]:focus-within
+/* Color the downward stub only when the focus is inside this block's
+   children — NOT when the caret is in the block's own text. :focus-within
+   alone is also true while editing the block itself, which paints a stub
+   that connects to nothing: the small hanging line under the bullet. */
+.ls-block[haschild]:has(.block-children:focus-within)
   > .block-main-container
   .block-content-wrapper::before {
   border-color: var(--ls-link-text-color);
@@ -133,7 +137,10 @@
   position: absolute;
   border-left: var(--ls-block-bullet-threading-width) solid transparent;
 }
-.ls-block[haschild]:focus-within > .ls-block-content-indent::before {
+/* Same guard for the child-indent spine: light it only when a child is
+   focused, never when the caret is on the block itself. */
+.ls-block[haschild]:has(.block-children:focus-within)
+  > .ls-block-content-indent::before {
   border-color: var(--ls-link-text-color);
 }
 :is(.embed-block > div, .embed-page)
