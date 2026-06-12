@@ -1,11 +1,44 @@
 @import url("https://cdn.jsdelivr.net/gh/tonsky/FiraCode@5.2/distr/fira_code.css");
 @import url("https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import url("https://cdn.jsdelivr.net/gh/benjypng/logseq-bullet-threading-css/bullet-threading.css");
 
+/* iA Writer Quattro S — served from iA's official font repo via jsDelivr */
+@font-face {
+  font-family: "iA Writer Quattro S";
+  src: url("https://cdn.jsdelivr.net/gh/iaolo/iA-Fonts@master/iA%20Writer%20Quattro/Webfonts/iAWriterQuattroS-Regular.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "iA Writer Quattro S";
+  src: url("https://cdn.jsdelivr.net/gh/iaolo/iA-Fonts@master/iA%20Writer%20Quattro/Webfonts/iAWriterQuattroS-Italic.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "iA Writer Quattro S";
+  src: url("https://cdn.jsdelivr.net/gh/iaolo/iA-Fonts@master/iA%20Writer%20Quattro/Webfonts/iAWriterQuattroS-Bold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "iA Writer Quattro S";
+  src: url("https://cdn.jsdelivr.net/gh/iaolo/iA-Fonts@master/iA%20Writer%20Quattro/Webfonts/iAWriterQuattroS-BoldItalic.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
-  --ct-font-family: "Atkinson Hyperlegible", sans-serif;
-  --ct-page-title-font-family: Asap, "Atkinson Hyperlegible", sans-serif;
+  --ct-font-family: "iA Writer Quattro S", sans-serif;
+  --ct-page-title-font-family: Asap, "iA Writer Quattro S", sans-serif;
   --ct-heading-font-family: var(--ct-page-title-font-family);
   --ct-code-font-family:
     "Fira Code", Monaco, Menlo, Consolas, "Courier New", monospace;
@@ -21,7 +54,7 @@
 }
 
 :root.is-mac {
-  --ct-font-family: "Atkinson Hyperlegible", sans-serif;
+  --ct-font-family: "iA Writer Quattro S", sans-serif;
 }
 
 html[data-theme="light"] {
@@ -244,11 +277,11 @@ mark {
 
 .ls-properties-area {
   background: color-mix(in srgb, var(--ls-primary-text-color) 3%, transparent);
-  border-left: 2px solid
-    color-mix(in srgb, var(--ls-link-text-color) 45%, transparent);
-  border-radius: 0 4px 4px 0;
+  border: 1px solid color-mix(in srgb, var(--ls-link-text-color) 40%, transparent);
+  border-radius: 6px;
   padding: 4px 10px;
-  margin-top: 2px;
+  margin-top: 4px;
+  margin-bottom: 2px;
 }
 
 .ls-properties-area .property-pair + .property-pair {

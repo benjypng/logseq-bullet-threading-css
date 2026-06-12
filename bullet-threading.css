@@ -170,6 +170,20 @@
 .doc-mode .block-children {
   border-left-width: 0px !important;
 }
+/* Disable inside the properties box — property values render as ls-blocks,
+   so threading curves/rails would otherwise reach into the box. Also stop
+   the thread of the block ABOVE from connecting down to a value's bullet. */
+.ls-properties-area div.items-center::before,
+.ls-properties-area div.items-center::after,
+.ls-properties-area .ls-block::before,
+.ls-properties-area .ls-block::after,
+.ls-properties-area .block-content-wrapper::before,
+.ls-properties-area .ls-block-content-indent::before {
+  display: none !important;
+}
+.ls-properties-area .block-children {
+  border-left-width: 0px !important;
+}
 /* Stop the child-indent spine overshooting below a childless last block.
    The spine (.ls-block-content-indent::before) is anchored bottom:0, so it runs
    to the bottom of the parent's last child. It only needs to reach that child's
