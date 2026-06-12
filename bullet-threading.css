@@ -143,6 +143,21 @@
   > .ls-block-content-indent::before {
   border-color: var(--ls-link-text-color);
 }
+/* Logseq's NATIVE threading CSS also colors the spine and the downward stub
+   via :focus-within, which is true while editing the block itself — on a
+   block with collapsed children the spine is only a few px tall, so this
+   shows as a small hanging dash under the bullet (confirmed orange in the
+   diagnostic probe). Force both transparent unless focus is actually inside
+   this block's children, overriding the native rule. */
+.ls-block[haschild]:not(:has(.block-children:focus-within))
+  > .ls-block-content-indent::before {
+  border-color: transparent !important;
+}
+.ls-block[haschild]:not(:has(.block-children:focus-within))
+  > .block-main-container
+  .block-content-wrapper::before {
+  border-color: transparent !important;
+}
 :is(.embed-block > div, .embed-page)
   > div
   > div
