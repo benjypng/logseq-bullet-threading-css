@@ -63,6 +63,7 @@ html[data-theme="light"] {
   --ct-page-font-color: #393939;
   --ct-accent: #638445;
   --ct-accent-hover: #789959;
+  --ct-on-accent: #fff;
   --ct-link: #f7753e;
   --ct-guideline-color: #cacaca;
   --ct-bullet-color: #d5d5d5;
@@ -102,6 +103,7 @@ html[data-theme="dark"] {
   --ct-page-font-color: #ccc;
   --ct-accent: #a0ca79;
   --ct-accent-hover: #b6df91;
+  --ct-on-accent: #1d1d1d;
   --ct-link: #f98b5d;
   --ct-guideline-color: #484848;
   --ct-bullet-color: #4d4d4d;
@@ -503,6 +505,25 @@ a.priority[href$="/C" i]::before {
 .ui__modal-panel,
 .settings-modal {
   background: var(--ls-primary-background-color);
+}
+
+/* Primary buttons (e.g. code block "Copy to clipboard"). Logseq's design
+   tokens --primary / --primary-foreground are unset by this theme, so the
+   built-in defaults render dark-on-dark in both modes. Drive the primary
+   variant from the accent, with a per-theme readable text color. */
+/* Logseq's hover:bg-primary / hover:text-* utilities are compiled !important,
+   so a class-based override ties and loses. The #root ID outranks any
+   class-only utility regardless of !important, guaranteeing these colors hold
+   across base, hover, and active states. */
+#root .ui__button[class*="bg-primary"],
+#root .ui__button[class*="bg-primary"]:hover,
+#root .ui__button[class*="bg-primary"]:active {
+  background-color: var(--ct-accent) !important;
+  color: var(--ct-on-accent) !important;
+}
+#root .ui__button[class*="bg-primary"]:hover,
+#root .ui__button[class*="bg-primary"]:active {
+  background-color: var(--ct-accent-hover) !important;
 }
 
 /* Bullet threading lives in bullet-threading.css (imported at the top of this
