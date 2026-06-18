@@ -976,6 +976,10 @@ a.priority[href$="/C" i]::before {
   background-color: transparent;
 }
 
+.ls-block[haschild] > .block-main-container .block-content-wrapper::before {
+  left: -10px;
+}
+
 /* --- Header: date-NLP plugin buttons --- */
 .cp__header .datenlp-toolbar {
   color: var(--ct-comment);
