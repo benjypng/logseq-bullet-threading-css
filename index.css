@@ -977,7 +977,7 @@ a.priority[href$="/C" i]::before {
 }
 
 .ls-block[haschild] > .block-main-container .block-content-wrapper::before {
-  left: -10px;
+  display: none;
 }
 
 /* --- Header: date-NLP plugin buttons --- */
