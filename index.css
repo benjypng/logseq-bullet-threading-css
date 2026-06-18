@@ -1027,3 +1027,10 @@ html[data-theme="light"] {
   --lx-gray-11: #6172b3;
   --lx-gray-12: #3760bf;
 }
+
+html[data-theme="light"] .block-content-or-editor-wrap:has(textarea),
+html[data-theme="light"] .ls-block.selected,
+html[data-theme="light"] .ls-block.selected > .block-main-container,
+html[data-theme="light"] .ls-block.selected .block-content {
+  background-color: color-mix(in srgb, var(--ct-mark-bg) 42%, transparent);
+}
