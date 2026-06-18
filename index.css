@@ -973,7 +973,7 @@ a.priority[href$="/C" i]::before {
 
 /* --- Block children guideline (DB version) --- */
 .block-children-left-border {
-  background-color: color-mix(in srgb, var(--ls-link-text-color) 50%, transparent);
+  background-color: transparent;
 }
 
 /* --- Header: date-NLP plugin buttons --- */
