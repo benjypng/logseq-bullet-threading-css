@@ -292,6 +292,38 @@ a.page-ref:hover {
   background: color-mix(in srgb, var(--ct-accent) 18%, transparent);
 }
 
+/* Node embeds: a soft inset card with an accent rail, so embedded blocks and
+   pages read as a transclusion of another node rather than inline content.
+   The tint stays light enough that text inside still clears AAA. */
+.embed-block,
+.embed-page,
+.block-content .embed {
+  display: block;
+  background: color-mix(in srgb, var(--ct-accent) 5%, var(--ct-page-background));
+  border: 1px solid color-mix(in srgb, var(--ct-accent) 18%, transparent);
+  border-left: 3px solid var(--ct-accent);
+  border-radius: var(--ct-radius);
+  padding: 4px 14px;
+  margin: 4px 0;
+}
+
+.embed-block .embed-block,
+.embed-block .embed-page,
+.embed-page .embed-block,
+.embed-page .embed-page {
+  background: color-mix(in srgb, var(--ct-accent) 7%, var(--ct-page-background));
+}
+
+/* The page title inside a page embed reads as a quiet caption. */
+.embed-page .embed-header,
+.embed-page .ls-page-title-container .block-title-wrap {
+  font-size: 0.82em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ct-comment);
+}
+
 /* Folded blocks: a steady marker. */
 .bullet-closed .bullet {
   background-color: var(--ct-bullet-closed-color) !important;
