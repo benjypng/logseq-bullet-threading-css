@@ -251,6 +251,42 @@ body {
   margin: 0.3em 0;
 }
 
+.ls-block :is(h1, h2, h3, h4, h5, h6).block-title-wrap::before {
+  display: inline-flex;
+  align-items: center;
+  height: 1.5em;
+  margin-right: 0.6ch;
+  padding: 0 5px;
+  border-radius: var(--ct-radius-sm);
+  background: var(--ct-properties-bg);
+  color: var(--ct-comment);
+  font-family: var(--ct-mono);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+}
+
+.ls-block h1.block-title-wrap::before {
+  content: "h1";
+}
+.ls-block h2.block-title-wrap::before {
+  content: "h2";
+}
+.ls-block h3.block-title-wrap::before {
+  content: "h3";
+}
+.ls-block h4.block-title-wrap::before {
+  content: "h4";
+}
+.ls-block h5.block-title-wrap::before {
+  content: "h5";
+}
+.ls-block h6.block-title-wrap::before {
+  content: "h6";
+}
+
 /* ---------------------------------------------------------------------------
    5. Blocks, bullets, references
    --------------------------------------------------------------------------- */
@@ -338,6 +374,13 @@ a.page-ref:hover {
 .block-content-or-editor-wrap:has(textarea) {
   background: var(--ct-active-bg);
   border-radius: var(--ct-radius-sm);
+}
+
+.block-content,
+.block-content-or-editor-wrap textarea {
+  font-family: var(--ct-font-family);
+  line-height: var(--ct-line-height) !important;
+  letter-spacing: normal;
 }
 
 textarea {
