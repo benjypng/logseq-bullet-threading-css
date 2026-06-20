@@ -378,7 +378,8 @@ a.page-ref:hover {
 }
 
 .block-content,
-.block-content-or-editor-wrap textarea {
+.block-content-or-editor-wrap textarea,
+.editor-wrapper textarea {
   font-family: var(--ct-font-family);
   line-height: var(--ct-line-height) !important;
   letter-spacing: normal;
