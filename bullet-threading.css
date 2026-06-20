@@ -74,8 +74,9 @@
   content: "";
   left: calc(var(--ls-block-bullet-threading-width) * -1);
   right: 12px;
-  top: calc(-50% + var(--ls-block-bullet-threading-width) * 0.5 - 1px);
-  bottom: 50%;
+  top: calc(-13px + var(--ls-block-bullet-threading-width) * 0.5 - 1px);
+  bottom: auto;
+  height: 26px;
   /* shift left 1px for border */
   position: absolute;
   border-left: var(--ls-block-bullet-threading-width) solid transparent;

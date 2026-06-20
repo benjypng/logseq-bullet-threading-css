@@ -217,11 +217,12 @@ body {
    Clean weighted headings; h1/h2 take a soft rule beneath. No raw-buffer
    markdown markers — this is the friendly app look, not the terminal.
    --------------------------------------------------------------------------- */
-.ls-page-title-container .block-title-wrap {
+.ls-page-title-container .block-title-wrap,
+.ls-page-title-container .editor-wrapper textarea {
   font-family: var(--ct-page-title-font-family);
   font-size: var(--ct-page-title-font-size);
   font-weight: var(--ct-page-title-font-weight);
-  line-height: 1.2;
+  line-height: 1.2 !important;
   letter-spacing: -0.02em;
   color: var(--ls-primary-text-color);
 }
@@ -574,6 +575,12 @@ a.tag {
 .block-tag:hover a {
   color: var(--ct-tag-color) !important;
   background: transparent !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ls-page-title-container .ls-block-right > .block-tags {
+    opacity: 1;
+  }
 }
 
 /* ---------------------------------------------------------------------------
