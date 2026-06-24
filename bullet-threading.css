@@ -108,12 +108,15 @@
   ~ .ls-block::before {
   border-color: transparent;
 }
-.ls-block[haschild] > .block-main-container .block-content-wrapper::before {
+.ls-block[haschild] > .block-main-container {
+  position: relative;
+}
+.ls-block[haschild] > .block-main-container::before {
   pointer-events: none;
   content: "";
   top: 18px;
   bottom: 0;
-  left: -12px;
+  left: 29px;
   position: absolute;
   border-left: var(--ls-block-bullet-threading-width) solid transparent;
 }
@@ -122,8 +125,7 @@
    alone is also true while editing the block itself, which paints a stub
    that connects to nothing: the small hanging line under the bullet. */
 .ls-block[haschild]:has(.block-children:focus-within)
-  > .block-main-container
-  .block-content-wrapper::before {
+  > .block-main-container::before {
   border-color: var(--ls-link-text-color);
 }
 .ls-block[haschild] > .ls-block-content-indent {
@@ -154,8 +156,8 @@
   border-color: transparent !important;
 }
 @media (max-width: 640px) {
-  .ls-block[haschild] > .block-main-container .block-content-wrapper::before {
-    left: -11px;
+  .ls-block[haschild] > .block-main-container::before {
+    left: 23px;
   }
   .ls-block[haschild] > .ls-block-content-indent::before {
     left: 23px;
@@ -178,7 +180,7 @@
 .ls-properties-area div.items-center::after,
 .ls-properties-area .ls-block::before,
 .ls-properties-area .ls-block::after,
-.ls-properties-area .block-content-wrapper::before,
+.ls-properties-area .block-main-container::before,
 .ls-properties-area .ls-block-content-indent::before {
   display: none !important;
 }
