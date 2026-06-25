@@ -227,6 +227,15 @@ body {
   color: var(--ls-primary-text-color);
 }
 
+.ls-page-title-container .block-content-inner > .block-head-wrap {
+  flex: 1;
+  min-width: 0;
+}
+.ls-page-title-container .block-head-wrap .w-full {
+  display: block;
+  width: 100%;
+}
+
 .ls-block :is(h1, h2, h3, h4, h5, h6).block-title-wrap {
   font-family: var(--ct-heading-font-family);
   font-weight: var(--ct-heading-font-weight);
