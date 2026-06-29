@@ -1,0 +1,1132 @@
+/* ===========================================================================
+   logseq-vanilla-css
+
+   A vanilla-flavoured theme for Logseq, ported from
+   logseq-bullet-threading-css.
+   =========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   1. Fonts
+
+   Inter is loaded as a variable webfont (the same source the navigator UI
+   uses); a system monospace stack is kept for code. Continues the threading
+   rules from bullet-threading.css.
+   --------------------------------------------------------------------------- */
+@import url("https://cdn.jsdelivr.net/gh/benjypng/logseq-bullet-threading-css/bullet-threading.css");
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/inter:vf@latest/latin-wght-normal.woff2)
+    format("woff2-variations");
+}
+
+/* ---------------------------------------------------------------------------
+   2. Tokens and palette
+   --------------------------------------------------------------------------- */
+:root {
+  --ct-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+    system-ui, Roboto, Helvetica, Arial, sans-serif;
+  --ct-mono:
+    "SF Mono", "JetBrains Mono", "Maple Mono", Menlo, Monaco, Consolas,
+    "Courier New", monospace;
+
+  --ct-font-family: var(--ct-sans);
+  --ct-page-title-font-family: var(--ct-sans);
+  --ct-heading-font-family: var(--ct-sans);
+  --ct-code-font-family: var(--ct-mono);
+
+  --ct-radius: 8px;
+  --ct-radius-sm: 6px;
+  --ct-radius-pill: 999px;
+
+  --ct-page-border-radius: var(--ct-radius);
+  --ct-line-height: 1.7;
+  --ct-font-size: 15px;
+  --ct-page-title-font-size: 28px;
+  --ct-page-title-font-weight: 700;
+  --ct-heading-font-size: 22px;
+  --ct-heading-font-weight: 700;
+}
+
+/* Light (cool paper) */
+html[data-theme="light"] {
+  --ct-background: #fafbfc;
+  --ct-page-background: #ffffff;
+  --ct-page-font-color: #1c2127;
+  --ct-accent: #2d72d2;
+  --ct-accent-hover: #215db0;
+  --ct-on-accent: #ffffff;
+  --ct-link: #8a5a16;
+  --ct-guideline-color: #e1e5ea;
+  --ct-bullet-color: #a7b6c2;
+  --ct-bullet-closed-color: #5c7080;
+  --ct-properties-bg: #f5f6f8;
+  --ct-field-bg: #f5f6f8;
+  --ct-active-bg: #eef3fb;
+  --ct-inline-code-bg: #f1f3f6;
+  --ct-inline-code-color: #0e5a8a;
+  --ct-quote-border: #2d72d2;
+  --ct-mark-bg: #fde6a8;
+  --ct-mark-color: #1c2127;
+  --ct-bold-color: #0d1117;
+  --ct-tag-color: #2d72d2;
+  --ct-tag-soft-bg: #e8f0fb;
+  --ct-selection: #cfe0f7;
+  --ct-journal-border: #e1e5ea;
+  --ct-comment: #44546a;
+
+  --ct-read: #2d72d2;
+  --ct-think: #634dbf;
+  --ct-do: #8a5a16;
+  --ct-money: #0f7b55;
+  --ct-meta: #44546a;
+
+  --ct-sidebar-bg: #30404d;
+  --ct-sidebar-border: #26333d;
+  --ct-sidebar-fg: #c5d0da;
+  --ct-sidebar-fg-muted: #97a6b4;
+  --ct-sidebar-hover-bg: rgba(138, 155, 168, 0.18);
+  --ct-sidebar-active-bg: rgba(138, 155, 168, 0.28);
+  --ct-sidebar-active-fg: #ffffff;
+
+  --ls-primary-background-color: var(--ct-background);
+  --ls-secondary-background-color: #f5f6f8;
+  --ls-tertiary-background-color: #eceff3;
+  --ls-quaternary-background-color: #e1e5ea;
+  --ls-primary-text-color: var(--ct-page-font-color);
+  --ls-link-text-color: var(--ct-accent);
+  --ls-link-text-hover-color: var(--ct-accent-hover);
+  --ls-link-ref-text-color: var(--ct-accent);
+  --ls-link-ref-text-hover-color: var(--ct-accent-hover);
+  --ls-active-primary-color: var(--ct-accent);
+  --ls-block-bullet-color: var(--ct-bullet-color);
+  --ls-guideline-color: var(--ct-guideline-color);
+  --ls-page-inline-code-bg-color: var(--ct-inline-code-bg);
+  --ls-page-inline-code-color: var(--ct-inline-code-color);
+  --ls-selection-background-color: var(--ct-selection);
+  --lx-accent-11: var(--ct-accent);
+}
+
+/* Dark (charcoal) */
+html[data-theme="dark"] {
+  --ct-background: #1c2127;
+  --ct-page-background: #232a30;
+  --ct-page-font-color: #d7dadd;
+  --ct-accent: #8abbff;
+  --ct-accent-hover: #a8cdff;
+  --ct-on-accent: #1c2127;
+  --ct-link: #e0b465;
+  --ct-guideline-color: #2f363d;
+  --ct-bullet-color: #5c7080;
+  --ct-bullet-closed-color: #8a9ba8;
+  --ct-properties-bg: #262d33;
+  --ct-field-bg: #262d33;
+  --ct-active-bg: #25303d;
+  --ct-inline-code-bg: #262d33;
+  --ct-inline-code-color: #6fc6ef;
+  --ct-quote-border: #8abbff;
+  --ct-mark-bg: #e3c06a;
+  --ct-mark-color: #1a1f24;
+  --ct-bold-color: #ffffff;
+  --ct-tag-color: #8abbff;
+  --ct-tag-soft-bg: #1e2b3e;
+  --ct-selection: #2e3d52;
+  --ct-journal-border: #2f363d;
+  --ct-comment: #9aa8b5;
+
+  --ct-read: #8abbff;
+  --ct-think: #c3b2ff;
+  --ct-do: #e0b465;
+  --ct-money: #7fd6aa;
+  --ct-meta: #9aa8b5;
+
+  --ct-sidebar-bg: #2c3845;
+  --ct-sidebar-border: #232d36;
+  --ct-sidebar-fg: #c2cdd8;
+  --ct-sidebar-fg-muted: #93a1af;
+  --ct-sidebar-hover-bg: rgba(138, 155, 168, 0.16);
+  --ct-sidebar-active-bg: rgba(138, 155, 168, 0.24);
+  --ct-sidebar-active-fg: #ffffff;
+
+  --ls-primary-background-color: var(--ct-background);
+  --ls-secondary-background-color: #232a30;
+  --ls-tertiary-background-color: #2a3138;
+  --ls-quaternary-background-color: #2f363d;
+  --ls-primary-text-color: var(--ct-page-font-color);
+  --ls-link-text-color: var(--ct-accent);
+  --ls-link-text-hover-color: var(--ct-accent-hover);
+  --ls-link-ref-text-color: var(--ct-accent);
+  --ls-link-ref-text-hover-color: var(--ct-accent-hover);
+  --ls-active-primary-color: var(--ct-accent);
+  --ls-block-bullet-color: var(--ct-bullet-color);
+  --ls-guideline-color: var(--ct-guideline-color);
+  --ls-page-inline-code-bg-color: var(--ct-inline-code-bg);
+  --ls-page-inline-code-color: var(--ct-inline-code-color);
+  --ls-selection-background-color: var(--ct-selection);
+  --lx-accent-11: var(--ct-accent);
+}
+
+/* ---------------------------------------------------------------------------
+   3. Base
+   --------------------------------------------------------------------------- */
+html,
+body {
+  font-family: var(--ct-font-family);
+  line-height: var(--ct-line-height);
+  background: var(--ls-primary-background-color);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  --ls-page-text-size: var(--ct-font-size);
+}
+
+@media (max-width: 640px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+#main-content-container {
+  background: var(--ct-background);
+}
+
+.cp__sidebar-main-content {
+  background: transparent;
+}
+
+/* The page reads as a soft card: a thin frame, gentle shadow, rounded edges. */
+.cp__sidebar-main-content > .mx-auto {
+  background: var(--ct-page-background);
+  border: 1px solid var(--ct-guideline-color);
+  border-radius: var(--ct-radius);
+  box-shadow: 0 1px 3px rgba(33, 31, 27, 0.05);
+  min-height: 100vh;
+  padding: 8px 40px 60px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .cp__sidebar-main-content > .mx-auto {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0 1em 1em;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   4. Titles and headings
+
+   Clean weighted headings; h1/h2 take a soft rule beneath. No raw-buffer
+   markdown markers — this is the friendly app look, not the terminal.
+   --------------------------------------------------------------------------- */
+.ls-page-title-container .block-title-wrap,
+.ls-page-title-container .editor-wrapper textarea {
+  font-family: var(--ct-page-title-font-family);
+  font-size: var(--ct-page-title-font-size);
+  font-weight: var(--ct-page-title-font-weight);
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em;
+  color: var(--ls-primary-text-color);
+}
+
+.ls-page-title-container .block-content-inner > .block-head-wrap {
+  flex: 1;
+  min-width: 0;
+}
+.ls-page-title-container .block-head-wrap .w-full {
+  display: block;
+  width: 100%;
+}
+
+.ls-block :is(h1, h2, h3, h4, h5, h6).block-title-wrap {
+  font-family: var(--ct-heading-font-family);
+  font-weight: var(--ct-heading-font-weight);
+  letter-spacing: -0.015em;
+  color: var(--ls-primary-text-color);
+}
+
+.ls-block h1.block-title-wrap {
+  font-size: var(--ct-heading-font-size);
+}
+
+.ls-block h2.block-title-wrap {
+  font-size: 20px;
+}
+
+.ls-block :is(h1, h2).block-title-wrap {
+  border-bottom: 1px solid var(--ct-guideline-color);
+  padding-bottom: 0.2em;
+  margin: 0.4em 0;
+}
+
+.ls-block :is(h3, h4, h5).block-title-wrap {
+  margin: 0.3em 0;
+}
+
+.ls-block :is(h1, h2, h3, h4, h5, h6).block-title-wrap::before {
+  display: inline-flex;
+  align-items: center;
+  height: 1.5em;
+  margin-right: 0.6ch;
+  padding: 0 5px;
+  border-radius: var(--ct-radius-sm);
+  background: var(--ct-properties-bg);
+  color: var(--ct-comment);
+  font-family: var(--ct-mono);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+}
+
+.ls-block h1.block-title-wrap::before {
+  content: "h1";
+}
+.ls-block h2.block-title-wrap::before {
+  content: "h2";
+}
+.ls-block h3.block-title-wrap::before {
+  content: "h3";
+}
+.ls-block h4.block-title-wrap::before {
+  content: "h4";
+}
+.ls-block h5.block-title-wrap::before {
+  content: "h5";
+}
+.ls-block h6.block-title-wrap::before {
+  content: "h6";
+}
+
+/* ---------------------------------------------------------------------------
+   5. Blocks, bullets, references
+   --------------------------------------------------------------------------- */
+.block-children {
+  border-left-color: transparent;
+}
+
+a.page-ref {
+  color: var(--ls-link-ref-text-color);
+}
+
+a.page-ref:hover {
+  color: var(--ls-link-ref-text-hover-color);
+}
+
+.page-reference .bracket {
+  color: var(--ct-comment);
+}
+
+.external-link {
+  color: var(--ct-link);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--ct-link) 45%, transparent);
+  padding: 0 1px;
+}
+
+.external-link:hover {
+  border-bottom-color: var(--ct-link);
+}
+
+.block-ref {
+  border-bottom: 1px solid var(--ct-accent);
+  background: color-mix(in srgb, var(--ct-accent) 10%, transparent);
+  border-radius: var(--ct-radius-sm);
+  padding: 1px 5px;
+}
+
+.block-ref:hover {
+  background: color-mix(in srgb, var(--ct-accent) 18%, transparent);
+}
+
+/* Node embeds: a soft inset card with an accent rail, so embedded blocks and
+   pages read as a transclusion of another node rather than inline content.
+   The tint stays light enough that text inside still clears AAA. */
+.embed-block,
+.embed-page,
+.block-content .embed {
+  display: block;
+  background: color-mix(in srgb, var(--ct-accent) 5%, var(--ct-page-background));
+  border: 1px solid color-mix(in srgb, var(--ct-accent) 18%, transparent);
+  border-left: 3px solid var(--ct-accent);
+  border-radius: var(--ct-radius);
+  padding: 4px 14px;
+  margin: 4px 0;
+}
+
+.embed-block .embed-block,
+.embed-block .embed-page,
+.embed-page .embed-block,
+.embed-page .embed-page {
+  background: color-mix(in srgb, var(--ct-accent) 7%, var(--ct-page-background));
+}
+
+/* The page title inside a page embed reads as a quiet caption. */
+.embed-page .embed-header,
+.embed-page .ls-page-title-container .block-title-wrap {
+  font-size: 0.82em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ct-comment);
+}
+
+/* Folded blocks: a steady marker. */
+.bullet-closed .bullet {
+  background-color: var(--ct-bullet-closed-color) !important;
+}
+
+/* ---------------------------------------------------------------------------
+   6. The block being edited
+
+   A soft, rounded highlight on the active block — an app affordance rather
+   than a terminal cursorline. The caret takes the accent as a normal bar.
+   --------------------------------------------------------------------------- */
+.block-content-or-editor-wrap:has(textarea) {
+  background: var(--ct-active-bg);
+  border-radius: var(--ct-radius-sm);
+}
+
+.block-content,
+.block-content-or-editor-wrap textarea,
+.editor-wrapper textarea {
+  font-family: var(--ct-font-family);
+  line-height: var(--ct-line-height) !important;
+  letter-spacing: normal;
+}
+
+textarea {
+  caret-color: var(--ct-accent);
+}
+
+textarea:focus-visible {
+  outline: none;
+}
+
+::selection {
+  background: var(--ct-selection);
+}
+
+/* ---------------------------------------------------------------------------
+   7. Inline code, bold, marks, rules
+   --------------------------------------------------------------------------- */
+:not(pre) > code {
+  font-family: var(--ct-code-font-family);
+  font-size: 0.88em;
+  background: var(--ct-inline-code-bg);
+  color: var(--ct-inline-code-color);
+  border-radius: var(--ct-radius-sm);
+  padding: 1px 5px !important;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--ct-code-font-family);
+}
+
+/* Code blocks: a soft rounded panel, one shade below the page. */
+.ls-block pre,
+pre.code {
+  background: var(--ct-properties-bg);
+  border: 1px solid var(--ct-guideline-color);
+  border-radius: var(--ct-radius);
+}
+
+.hljs-comment,
+.hljs-quote,
+.cm-comment,
+.token.comment,
+.token.block-comment {
+  color: var(--ct-comment) !important;
+  font-style: italic;
+}
+
+b,
+strong {
+  color: var(--ct-bold-color);
+}
+
+mark {
+  background: var(--ct-mark-bg);
+  border-radius: var(--ct-radius-sm);
+  padding: 0 4px;
+}
+
+mark,
+mark * {
+  color: var(--ct-mark-color) !important;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: var(--ct-guideline-color);
+}
+
+/* ---------------------------------------------------------------------------
+   8. Journals, properties, datetime, tasks
+   --------------------------------------------------------------------------- */
+#journals .journal-item {
+  border-top: 1px solid var(--ct-journal-border);
+}
+
+#journals .journal-item:first-child {
+  border-top: none;
+}
+
+.ls-properties-area {
+  background: var(--ct-properties-bg);
+  border: 1px solid
+    color-mix(in srgb, var(--ls-link-text-color) 22%, transparent);
+  border-radius: var(--ct-radius);
+  padding: 4px 12px;
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
+
+.ls-properties-area .property-pair + .property-pair {
+  border-top: 1px solid
+    color-mix(in srgb, var(--ls-primary-text-color) 7%, transparent);
+  padding-top: 2px;
+  margin-top: 2px;
+}
+
+.property-k,
+.positioned-properties .property-k {
+  color: var(--ct-comment);
+  font-size: 0.9em;
+}
+
+.property-icon .ui__icon {
+  color: var(--ct-comment);
+}
+
+.ls-datetime a.page-ref {
+  color: var(--ct-quote-border);
+}
+
+.overdue .ls-datetime a.page-ref {
+  color: var(--ct-link);
+  font-weight: 600;
+}
+
+/* Strikethrough. Inline ~~text~~ and DONE-task text both render as <del>;
+   the previous rule stripped the line (text-decoration: none), which also
+   flattened genuine inline strikethrough. Put the line back. */
+.block-title-wrap del,
+.block-content del {
+  text-decoration: line-through;
+  text-decoration-thickness: from-font;
+}
+
+/* ---------------------------------------------------------------------------
+   9. Tags
+
+   Soft pills: an accent-tinted background with the accent label, rounded
+   fully. The tag text meets AAA against the tint.
+   --------------------------------------------------------------------------- */
+a.tag {
+  border: none;
+}
+
+.ls-table-cell a.tag,
+.multi-values a.tag {
+  color: var(--ct-tag-color);
+}
+
+.block-tag,
+.block-tag .tag,
+.block-tag .hash-symbol,
+.block-tag .tag span {
+  font-size: 0.85em;
+  line-height: 1;
+  font-weight: 550 !important;
+  opacity: 1 !important;
+}
+
+.block-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 9px;
+  border-radius: var(--ct-radius-pill);
+  background: var(--ct-tag-soft-bg);
+  border: none;
+  letter-spacing: 0;
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.block-tag .flex.items-center {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.block-tag .tag,
+.block-tag .tag span,
+.block-tag .hash-symbol,
+.block-tag a {
+  color: var(--ct-tag-color) !important;
+  background: transparent !important;
+  text-decoration: none !important;
+}
+
+.block-tag:hover,
+.block-tag.private-tag:hover {
+  background: color-mix(
+    in srgb,
+    var(--ct-tag-color) 22%,
+    var(--ct-tag-soft-bg)
+  ) !important;
+  border-radius: var(--ct-radius-pill) !important;
+}
+
+.block-tag:hover .tag,
+.block-tag:hover .tag span,
+.block-tag:hover .hash-symbol,
+.block-tag:hover a {
+  color: var(--ct-tag-color) !important;
+  background: transparent !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ls-page-title-container .ls-block-right > .block-tags {
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   10. Quotes, tables
+   --------------------------------------------------------------------------- */
+.block-content-or-editor-wrap[data-node-type="quote"],
+blockquote {
+  border-left: 4px solid var(--ct-quote-border);
+  background: color-mix(in srgb, var(--ct-quote-border) 8%, transparent);
+  border-radius: var(--ct-radius-sm);
+}
+
+.block-content-or-editor-wrap[data-node-type="quote"] {
+  padding: 2px 14px;
+}
+
+.block-content-or-editor-wrap[data-node-type="quote"] .block-title-wrap {
+  font-style: italic;
+  color: color-mix(in srgb, var(--ls-primary-text-color) 88%, transparent);
+}
+
+.table-wrapper {
+  border-radius: var(--ct-radius);
+}
+
+.table-wrapper thead th {
+  color: var(--ls-primary-text-color);
+  border-bottom: 2px solid var(--ct-guideline-color);
+}
+
+.table-wrapper tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--ls-primary-text-color) 4%, transparent);
+}
+
+.table-wrapper tr {
+  border-bottom: none;
+}
+
+.ls-table-cell a.tag,
+.multi-values a.tag {
+  color: var(--ls-link-ref-text-color);
+}
+
+/* ---------------------------------------------------------------------------
+   11. Custom queries
+   --------------------------------------------------------------------------- */
+.custom-query {
+  background: color-mix(in srgb, var(--ls-primary-text-color) 3%, transparent);
+  border: 1px solid var(--ct-guideline-color);
+  border-radius: var(--ct-radius);
+  padding: 6px 14px 10px;
+}
+
+.custom-query .ls-table .bg-gray-01,
+.custom-query .ls-table-header.bg-gray-01,
+.custom-query .ls-table-row.bg-gray-01 {
+  background: transparent !important;
+}
+
+.custom-query .ls-table-header {
+  background: color-mix(
+    in srgb,
+    var(--ls-primary-text-color) 5%,
+    transparent
+  ) !important;
+  border-top: none !important;
+  border-bottom: 1px solid var(--ct-guideline-color) !important;
+}
+
+.custom-query .ls-table-header-cell {
+  border: none !important;
+}
+
+.custom-query .ls-table-header-cell span {
+  color: var(--ct-comment);
+  font-weight: 600;
+  font-size: 0.78em;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.custom-query .ls-table-row {
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--ls-primary-text-color) 7%, transparent) !important;
+}
+
+.custom-query .ls-table-row:hover {
+  background: color-mix(
+    in srgb,
+    var(--ls-link-text-color) 7%,
+    transparent
+  ) !important;
+}
+
+.custom-query .ls-table-cell .border-r {
+  border-right-color: color-mix(
+    in srgb,
+    var(--ls-primary-text-color) 6%,
+    transparent
+  ) !important;
+}
+
+.custom-query .ls-foldable-header .page-ref {
+  color: var(--ls-link-ref-text-color);
+  font-weight: 600;
+}
+
+.ls-view-head .font-medium.opacity-50 {
+  color: var(--ls-link-ref-text-color);
+  opacity: 0.75 !important;
+}
+
+/* ---------------------------------------------------------------------------
+   12. Priorities, primary buttons
+   --------------------------------------------------------------------------- */
+a[priority]::before,
+a.priority[href$="/A" i]::before {
+  content: "🔴";
+  margin-right: 2px;
+}
+a.priority[href$="/B" i]::before {
+  content: "🟡";
+  margin-right: 2px;
+}
+a.priority[href$="/C" i]::before {
+  content: "🟢";
+  margin-right: 2px;
+}
+
+#root .ui__button[class*="bg-primary"],
+#root .ui__button[class*="bg-primary"]:hover,
+#root .ui__button[class*="bg-primary"]:active {
+  background-color: var(--ct-accent) !important;
+  color: var(--ct-on-accent) !important;
+  border-radius: var(--ct-radius-sm) !important;
+}
+
+#root .ui__button[class*="bg-primary"]:hover,
+#root .ui__button[class*="bg-primary"]:active {
+  background-color: var(--ct-accent-hover) !important;
+}
+
+.recent {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------------------------
+   13. Chrome: header, sidebars, notifications, scrollbars
+   --------------------------------------------------------------------------- */
+.cp__header {
+  font-size: var(--ct-font-size) !important;
+  /* Frosted toolbar: held a touch off the page canvas with a crisp base line,
+     so the row reads as chrome and the dark sidebar meets it on a clean edge
+     instead of looking capped. */
+  background: color-mix(in srgb, var(--ct-page-background) 85%, transparent);
+  border-bottom: 1px solid var(--ct-guideline-color);
+  backdrop-filter: saturate(1.2) blur(8px);
+}
+
+.cp__header .button.icon,
+.cp__header .ui__button,
+.cp__header .injected-ui-item-toolbar .button,
+.cp__header .toolbar-plugins-manager-trigger {
+  color: var(--ct-comment);
+}
+
+.cp__header .button.icon:hover,
+.cp__header .ui__button:hover,
+.cp__header .injected-ui-item-toolbar .button:hover {
+  color: var(--ls-link-text-color);
+  background: color-mix(in srgb, var(--ls-link-text-color) 10%, transparent);
+  border-radius: var(--ct-radius-sm);
+}
+
+.cp__header .cp__rtc-sync-indicator .ui__button.idle {
+  color: var(--ls-accent-11, var(--ct-accent));
+}
+
+#left-sidebar .favorite-item .page-title,
+#left-sidebar .recent-item .page-title {
+  color: var(--ct-sidebar-fg);
+}
+
+#right-sidebar.cp__right-sidebar {
+  background: var(--ls-secondary-background-color);
+}
+
+.cp__right-sidebar-topbar {
+  background: var(--ls-primary-background-color);
+  backdrop-filter: none;
+}
+
+.cp__right-sidebar-settings-btn {
+  color: var(--ct-comment);
+}
+
+.cp__right-sidebar-settings-btn:hover {
+  color: var(--ls-link-text-color);
+}
+
+#right-sidebar .sidebar-item.content {
+  background: var(--ls-primary-background-color);
+  border: 1px solid var(--ct-guideline-color);
+  border-radius: var(--ct-radius);
+}
+
+#right-sidebar .sidebar-item-header {
+  background: transparent;
+}
+
+.ui__modal-panel,
+.settings-modal {
+  background: var(--ls-primary-background-color);
+}
+
+.ui__notifications .ui__notifications-content > .transition > .rounded-lg,
+.ui__notifications .ui__notifications-content .notification-area .rounded-lg {
+  background: var(--ls-secondary-background-color);
+  border: 1px solid var(--ct-guideline-color);
+  border-radius: var(--ct-radius);
+  box-shadow: 0 8px 24px rgba(33, 31, 27, 0.12);
+}
+
+.ui__notifications .ui__notifications-content .text-sm {
+  color: var(--ls-primary-text-color);
+}
+
+.ui__notifications .ui__notifications-content .ui__button {
+  color: var(--ct-comment);
+}
+
+.ui__notifications .ui__notifications-content .ui__button:hover {
+  color: var(--ls-primary-text-color);
+  background: color-mix(
+    in srgb,
+    var(--ls-primary-text-color) 8%,
+    transparent
+  ) !important;
+}
+
+.ui__notifications .notification-error .text-error,
+.ui__notifications .notification-error .ls-icon-circle-x {
+  color: var(--ct-link);
+}
+
+.ui__notifications .notification-success .text-success {
+  color: var(--ct-money);
+}
+
+.ui__notifications .notification-warning .text-warning {
+  color: var(--ct-bullet-closed-color);
+}
+
+#search-button {
+  border-radius: var(--ct-radius);
+}
+
+#search-button:active,
+#search-button[data-keep-selection="true"]:focus,
+#search-button.active {
+  color: var(--ls-link-text-color);
+  background: color-mix(in srgb, var(--ls-link-text-color) 12%, transparent);
+}
+
+.cp__header .rtc-collaborators {
+  background: color-mix(in srgb, var(--ls-primary-text-color) 5%, transparent);
+  border: 1px solid var(--ct-guideline-color);
+  border-radius: var(--ct-radius-pill);
+  padding: 2px 6px 2px 2px;
+}
+
+.cp__header .rtc-collaborators .ui__button {
+  height: 28px;
+  padding: 0 8px;
+}
+
+.cp__header .ui__avatar .bg-muted {
+  color: var(--ls-primary-text-color);
+  font-weight: 600;
+  background-color: color-mix(
+    in srgb,
+    var(--ct-tag-color) 24%,
+    transparent
+  ) !important;
+}
+
+/* Soft rounded scrollbars. */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--ct-comment) 32%, transparent);
+  border: 2px solid transparent;
+  border-radius: var(--ct-radius-pill);
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--ct-comment) 50%, transparent);
+  background-clip: padding-box;
+}
+
+/* ---------------------------------------------------------------------------
+   14. DB-version surfaces: left sidebar, tables, right sidebar, chrome
+   --------------------------------------------------------------------------- */
+
+/* --- Left sidebar shell ---
+   Logseq paints the sidebar fill on a wrapper whose own rule outranks a plain
+   #left-sidebar selector, so the slate is set id-scoped with !important across
+   the surfaces it might paint; whichever element wins lands on slate. The same
+   scoping lifts the foreground colours so labels and icons read light. */
+#left-sidebar,
+#left-sidebar.cp__sidebar-left-layout,
+#left-sidebar .left-sidebar-inner,
+#left-sidebar .nav-header,
+#left-sidebar .nav-contents-container,
+#left-sidebar .sidebar-contents-container {
+  background-color: var(--ct-sidebar-bg) !important;
+}
+
+#left-sidebar {
+  border-right: 1px solid var(--ct-sidebar-border);
+  /* Logseq keys the sticky group headers (.hd) and some surfaces to its own
+     --left-sidebar-bg-color, still a light default. Re-point it at the slate
+     so those stop reading as white pills. */
+  --left-sidebar-bg-color: var(--ct-sidebar-bg);
+}
+
+/* Sticky section headers (NAVIGATIONS, FAVORITES) stay opaque on the slate. */
+#left-sidebar .sidebar-content-group-inner > .hd {
+  background-color: var(--ct-sidebar-bg) !important;
+}
+
+#left-sidebar .cp__icon,
+#left-sidebar .ui__icon,
+#left-sidebar .left-sidebar-inner .cp__graphs-selector .item strong {
+  color: var(--ct-sidebar-fg) !important;
+}
+
+#left-sidebar .sidebar-content-group .wrap-th strong {
+  color: var(--ct-sidebar-fg-muted) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.72em;
+}
+
+#left-sidebar .sidebar-navigations .item,
+#left-sidebar .favorite-item .page-title,
+#left-sidebar .recent-item .page-title {
+  color: var(--ct-sidebar-fg) !important;
+}
+
+#left-sidebar .sidebar-navigations a.item:hover,
+#left-sidebar .favorite-item .link-item:hover,
+#left-sidebar .recent-item .link-item:hover {
+  background: var(--ct-sidebar-hover-bg);
+  border-radius: var(--ct-radius-sm);
+}
+
+#left-sidebar .sidebar-navigations a.item.active,
+#left-sidebar .journals-nav.active a.item {
+  color: var(--ct-sidebar-active-fg) !important;
+  background: var(--ct-sidebar-active-bg);
+  border-radius: var(--ct-radius-sm);
+}
+
+#left-sidebar .shui-shortcut-key {
+  background: var(--ct-sidebar-hover-bg);
+  border: 1px solid var(--ct-sidebar-border);
+  color: var(--ct-sidebar-fg-muted);
+  border-radius: var(--ct-radius-sm);
+}
+
+/* Left-sidebar muted text rides on the slate; right sidebar and header
+   keep the page-level muted colour. */
+#left-sidebar .text-muted-foreground {
+  color: var(--ct-sidebar-fg-muted) !important;
+}
+
+#right-sidebar .text-muted-foreground,
+.cp__header .text-muted-foreground {
+  color: var(--ct-comment);
+}
+
+/* --- Table views --- */
+.ls-table-header,
+.ls-table-header.bg-gray-01 {
+  background: var(--ct-field-bg) !important;
+  border-top: none !important;
+  border-bottom: 1px solid var(--ct-guideline-color) !important;
+}
+
+.ls-table-header-cell {
+  border-color: var(--ct-guideline-color) !important;
+}
+
+.ls-table-header-cell span,
+.ls-table-header-cell button {
+  color: var(--ct-comment) !important;
+}
+
+.ls-table-row,
+.ls-table-row.bg-gray-01 {
+  background: transparent !important;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--ct-page-font-color) 8%, transparent) !important;
+}
+
+.ls-table-row:hover {
+  background: color-mix(in srgb, var(--ct-accent) 7%, transparent) !important;
+}
+
+.ls-table-cell {
+  color: var(--ls-primary-text-color);
+}
+
+.ls-table-cell .border-r {
+  border-right-color: color-mix(
+    in srgb,
+    var(--ct-page-font-color) 7%,
+    transparent
+  ) !important;
+}
+
+.ls-table-footer .border-b {
+  border-bottom-color: var(--ct-guideline-color) !important;
+}
+
+.ls-view-head .font-medium.opacity-50,
+.ls-view-head .views button {
+  color: var(--ct-comment);
+}
+
+.ls-foldable-header .page-ref {
+  color: var(--ls-link-ref-text-color);
+}
+
+/* --- Checkboxes --- */
+#root .ui__checkbox {
+  border-color: var(--ct-comment);
+  border-radius: var(--ct-radius-sm);
+}
+
+#root .ui__checkbox[data-state="checked"] {
+  background-color: var(--ct-accent);
+  color: var(--ct-on-accent);
+}
+
+/* --- Right sidebar items --- */
+#right-sidebar .sidebar-item.content {
+  box-shadow: none;
+  border-radius: var(--ct-radius);
+}
+
+#right-sidebar .sidebar-item-header.color-level {
+  background: var(--ls-secondary-background-color);
+  border-radius: var(--ct-radius);
+}
+
+/* --- Block children guideline (DB version) --- */
+.block-children-left-border {
+  background-color: transparent;
+}
+
+.ls-block[haschild] > .block-main-container .block-content-wrapper::before {
+  display: none;
+}
+
+/* --- Header: date-NLP plugin buttons --- */
+.cp__header .datenlp-toolbar {
+  color: var(--ct-comment);
+}
+
+.cp__header .datenlp-toolbar:hover {
+  color: var(--ls-link-text-color);
+}
+
+/* ---------------------------------------------------------------------------
+   15. Logseq gray scale (drives bg-gray-*, borders, muted surfaces)
+
+   The DB UI's utility classes read from the --lx-gray-* ramp.
+   --------------------------------------------------------------------------- */
+html[data-theme="light"] {
+  --lx-gray-01: #fafbfc;
+  --lx-gray-02: #f5f6f8;
+  --lx-gray-03: #eceff3;
+  --lx-gray-04: #e1e5ea;
+  --lx-gray-05: #d3d9e0;
+  --lx-gray-06: #c1c9d2;
+  --lx-gray-07: #aab3bf;
+  --lx-gray-08: #8a96a3;
+  --lx-gray-09: #6b7785;
+  --lx-gray-10: #54606e;
+  --lx-gray-11: #44546a;
+  --lx-gray-12: #1c2127;
+}
+
+html[data-theme="dark"] {
+  --lx-gray-01: #1c2127;
+  --lx-gray-02: #232a30;
+  --lx-gray-03: #2a3138;
+  --lx-gray-04: #2f363d;
+  --lx-gray-05: #353d45;
+  --lx-gray-06: #3c454e;
+  --lx-gray-07: #46515b;
+  --lx-gray-08: #5c7080;
+  --lx-gray-09: #6b7785;
+  --lx-gray-10: #8a96a3;
+  --lx-gray-11: #aab3bf;
+  --lx-gray-12: #d7dadd;
+}
+
+html[data-theme="light"] .block-content-or-editor-wrap:has(textarea),
+html[data-theme="light"] .ls-block.selected,
+html[data-theme="light"] .ls-block.selected > .block-main-container,
+html[data-theme="light"] .ls-block.selected .block-content {
+  background-color: var(--ct-active-bg);
+}
+
+html[data-theme="dark"] .ls-block.selected,
+html[data-theme="dark"] .ls-block.selected > .block-main-container,
+html[data-theme="dark"] .ls-block.selected .block-content {
+  background-color: var(--ct-active-bg);
+}
