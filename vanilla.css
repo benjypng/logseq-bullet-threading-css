@@ -394,7 +394,7 @@ a.page-ref:hover {
   border-radius: var(--ct-radius-sm);
 }
 
-.block-content,
+.block-content:not(.ls-page-title-container *),
 .block-content-or-editor-wrap textarea,
 .editor-wrapper textarea {
   font-family: var(--ct-font-family);
