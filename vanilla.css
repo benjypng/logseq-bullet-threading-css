@@ -235,6 +235,10 @@ body {
   color: var(--ls-primary-text-color);
 }
 
+.ls-page-title-container {
+  --ct-line-height: 1.2;
+}
+
 .ls-page-title-container .block-content-inner > .block-head-wrap {
   flex: 1;
   min-width: 0;
@@ -394,7 +398,7 @@ a.page-ref:hover {
   border-radius: var(--ct-radius-sm);
 }
 
-.block-content:not(.ls-page-title-container *),
+.block-content,
 .block-content-or-editor-wrap textarea,
 .editor-wrapper textarea {
   font-family: var(--ct-font-family);
