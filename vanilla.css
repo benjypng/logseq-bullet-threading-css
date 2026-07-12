@@ -46,6 +46,7 @@
   --ct-page-border-radius: var(--ct-radius);
   --ct-line-height: 1.7;
   --ct-font-size: 15px;
+  --ct-font-weight: 500;
   --ct-page-title-font-size: 28px;
   --ct-page-title-font-weight: 700;
   --ct-heading-font-size: 22px;
@@ -176,6 +177,7 @@ html[data-theme="dark"] {
 html,
 body {
   font-family: var(--ct-font-family);
+  font-weight: var(--ct-font-weight);
   line-height: var(--ct-line-height);
   background: var(--ls-primary-background-color);
   -webkit-font-smoothing: antialiased;
@@ -398,6 +400,7 @@ a.page-ref:hover {
 .block-content-or-editor-wrap textarea,
 .editor-wrapper textarea {
   font-family: var(--ct-font-family);
+  font-weight: var(--ct-font-weight);
   line-height: var(--ct-line-height) !important;
   letter-spacing: normal;
 }
