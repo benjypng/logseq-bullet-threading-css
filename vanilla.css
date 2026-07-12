@@ -192,19 +192,18 @@ body {
 }
 
 #main-content-container {
-  background: var(--ct-background);
+  background: var(--ct-page-background);
 }
 
 .cp__sidebar-main-content {
   background: transparent;
 }
 
-/* The page reads as a soft card: a thin frame, gentle shadow, rounded edges. */
 .cp__sidebar-main-content > .mx-auto {
-  background: var(--ct-page-background);
-  border: 1px solid var(--ct-guideline-color);
-  border-radius: var(--ct-radius);
-  box-shadow: 0 1px 3px rgba(33, 31, 27, 0.05);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
   min-height: 100vh;
   padding: 8px 40px 60px;
   box-sizing: border-box;
@@ -212,9 +211,6 @@ body {
 
 @media (max-width: 640px) {
   .cp__sidebar-main-content > .mx-auto {
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
     padding: 0 1em 1em;
   }
 }
