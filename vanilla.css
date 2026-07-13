@@ -23,6 +23,24 @@
     format("woff2-variations");
 }
 
+@font-face {
+  font-family: "Newsreader";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/newsreader:vf@latest/latin-wght-normal.woff2)
+    format("woff2-variations");
+}
+
+@font-face {
+  font-family: "Newsreader";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/newsreader:vf@latest/latin-wght-italic.woff2)
+    format("woff2-variations");
+}
+
 /* ---------------------------------------------------------------------------
    2. Tokens and palette
    --------------------------------------------------------------------------- */
@@ -30,13 +48,16 @@
   --ct-sans:
     "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
     system-ui, Roboto, Helvetica, Arial, sans-serif;
+  --ct-serif:
+    "Newsreader", "Iowan Old Style", "Palatino", Georgia, "Times New Roman",
+    serif;
   --ct-mono:
     "SF Mono", "JetBrains Mono", "Maple Mono", Menlo, Monaco, Consolas,
     "Courier New", monospace;
 
-  --ct-font-family: var(--ct-sans);
-  --ct-page-title-font-family: var(--ct-sans);
-  --ct-heading-font-family: var(--ct-sans);
+  --ct-font-family: var(--ct-serif);
+  --ct-page-title-font-family: var(--ct-serif);
+  --ct-heading-font-family: var(--ct-serif);
   --ct-code-font-family: var(--ct-mono);
 
   --ct-radius: 8px;
