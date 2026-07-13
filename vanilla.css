@@ -46,8 +46,8 @@
    --------------------------------------------------------------------------- */
 :root {
   --ct-sans:
-    "Newsreader", "Iowan Old Style", "Palatino", Georgia, "Times New Roman",
-    serif;
+    "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+    system-ui, Roboto, Helvetica, Arial, sans-serif;
   --ct-serif:
     "Newsreader", "Iowan Old Style", "Palatino", Georgia, "Times New Roman",
     serif;
@@ -66,8 +66,8 @@
 
   --ct-page-border-radius: var(--ct-radius);
   --ct-line-height: 1.7;
-  --ct-font-size: 15px;
-  --ct-font-weight: 500;
+  --ct-font-size: 20px;
+  --ct-font-weight: 480;
   --ct-page-title-font-size: 28px;
   --ct-page-title-font-weight: 700;
   --ct-heading-font-size: 22px;
