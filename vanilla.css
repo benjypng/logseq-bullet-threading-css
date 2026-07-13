@@ -46,8 +46,8 @@
    --------------------------------------------------------------------------- */
 :root {
   --ct-sans:
-    "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
-    system-ui, Roboto, Helvetica, Arial, sans-serif;
+    "Newsreader", "Iowan Old Style", "Palatino", Georgia, "Times New Roman",
+    serif;
   --ct-serif:
     "Newsreader", "Iowan Old Style", "Palatino", Georgia, "Times New Roman",
     serif;
@@ -376,7 +376,11 @@ a.page-ref:hover {
 .embed-page,
 .block-content .embed {
   display: block;
-  background: color-mix(in srgb, var(--ct-accent) 5%, var(--ct-page-background));
+  background: color-mix(
+    in srgb,
+    var(--ct-accent) 5%,
+    var(--ct-page-background)
+  );
   border: 1px solid color-mix(in srgb, var(--ct-accent) 18%, transparent);
   border-left: 3px solid var(--ct-accent);
   border-radius: var(--ct-radius);
@@ -388,7 +392,11 @@ a.page-ref:hover {
 .embed-block .embed-page,
 .embed-page .embed-block,
 .embed-page .embed-page {
-  background: color-mix(in srgb, var(--ct-accent) 7%, var(--ct-page-background));
+  background: color-mix(
+    in srgb,
+    var(--ct-accent) 7%,
+    var(--ct-page-background)
+  );
 }
 
 /* The page title inside a page embed reads as a quiet caption. */
